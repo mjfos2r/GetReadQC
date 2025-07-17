@@ -1,4 +1,4 @@
-IMAGE_NAME = GetReadQC 
+IMAGE_NAME = GetReadQC
 VERSION := $(shell cat .VERSION)
 TAG1 = mjfos2r/$(IMAGE_NAME):$(VERSION)
 TAG2 = mjfos2r/$(IMAGE_NAME):latest
