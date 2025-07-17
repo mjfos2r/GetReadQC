@@ -51,7 +51,6 @@ task FastQC {
     }
 
     Int disk_size = 365 + 2 * ceil(size(fastq_files, "GB"))
-    Int num_samples = (length(R1) + length(R2)) / 2
 
     command <<<
         set -euo pipefail
