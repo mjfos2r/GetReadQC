@@ -9,7 +9,7 @@ workflow GetReadQC {
     }
     parameter_meta {
         fastq_files: "Array of Fastq files."
-        nano: "flag specifying if input is from nanopore [default: false]"
+        nanopore: "flag specifying if input is from nanopore [default: false]"
         runtime_attr_override: "Override the default runtime attributes."
     }
 
@@ -22,7 +22,8 @@ workflow GetReadQC {
     call FastQC {
         input:
             fastq_files = fastq_files,
-            nanopore = nanopore
+            nanopore = nanopore,
+            runtime_attr_override = runtime_attr_override
     }
 
     output {
@@ -40,7 +41,7 @@ task FastQC {
 
     parameter_meta {
         fastq_files: "Array of Fastq files."
-        nano: "flag specifying if input is from nanopore [default: false]"
+        nanopore: "flag specifying if input is from nanopore [default: false]"
         runtime_attr_override: "Override the default runtime attributes."
     }
 
@@ -58,7 +59,7 @@ task FastQC {
         NPROCS=$(cat /proc/cpuinfo | grep '^processor' | tail -n1 | awk '{print $NF+1}')
 
         mkdir -p fastqc_out multiqc_out
-        if [[ ~{nanopore} ]]
+        if ~{nanopore}; then
             echo "Beginning execution of FastQC in Nanopore mode!"
             fastqc \
                 --outdir fastqc_out \
