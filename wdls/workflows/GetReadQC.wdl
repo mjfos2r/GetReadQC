@@ -90,9 +90,9 @@ task FastQC {
 
         echo "packaging up results for output."
         echo "compressing fastqc output..."
-        tar -xzcf fastqc_out.tar.gz fastqc_out/
+        tar -zcf fastqc_out.tar.gz fastqc_out/
         echo "compressing multiqc output..."
-        tar -xzcf multiqc_out.tar.gz multiqc_out/
+        tar -zcf multiqc_out.tar.gz multiqc_out/
 
     >>>
 
