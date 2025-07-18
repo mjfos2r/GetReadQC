@@ -113,8 +113,8 @@ task MultiQC {
     >>>
 
     output {
-        File multiqc_data = "multiqc_data.zip"
-        File multiqc_report = "multiqc_report.html"
+        File multiqc_data = "multiqc_out/multiqc_data.zip"
+        File multiqc_report = "multiqc_out/multiqc_report.html"
     }
 
     #########################
