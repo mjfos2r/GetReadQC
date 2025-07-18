@@ -20,7 +20,7 @@ task FastQC {
     }
 
     Int disk_size = 365 + ceil(size(reads, "GB"))
-    String ext = sub(basename(reads), ".*\\.", "")
+    String ext = sub(basename(reads), "^[^.]+", "")
     String filename = sub(basename(reads), ext, "")
 
     command <<<
