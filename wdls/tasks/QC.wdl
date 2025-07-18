@@ -32,7 +32,7 @@ task FastQC {
             echo "Beginning execution of FastQC in Nanopore mode!"
             fastqc \
                 --threads "$NPROCS"\
-                --memory 15900 \
+                --memory 3900 \
                 --quiet \
                 --nano \
                 ~{reads}
@@ -41,7 +41,7 @@ task FastQC {
             echo "Beginning execution of FastQC."
             fastqc \
                 --threads "$NPROCS"\
-                --memory 15900 \
+                --memory 3900 \
                 --quiet \
                 ~{reads}
             echo "Finished!"
@@ -118,8 +118,8 @@ task MultiQC {
     #########################
     # BEGONE PREEMPTION
     RuntimeAttr default_attr = object {
-        cpu_cores:          8,
-        mem_gb:             64,
+        cpu_cores:          4,
+        mem_gb:             16,
         disk_gb:            disk_size,
         boot_disk_gb:       50,
         preemptible_tries:  0,
