@@ -28,36 +28,38 @@ task FastQC {
 
         NPROCS=$(cat /proc/cpuinfo | grep '^processor' | tail -n1 | awk '{print $NF+1}')
 
+        mkdir outdir
+
         if ~{nanopore}; then
             echo "Beginning execution of FastQC in Nanopore mode!"
             fastqc \
-                --threads "$NPROCS"\
-                --memory 3900 \
-                --quiet \
+                --outdir outdir \
+                --memory 7900 \
                 --nano \
                 ~{reads}
             echo "Finished!"
         else
             echo "Beginning execution of FastQC."
             fastqc \
-                --threads "$NPROCS"\
-                --memory 3900 \
-                --quiet \
+                --outdir outdir \
+                --memory 7900 \
                 ~{reads}
             echo "Finished!"
         fi
+        echo "Files present in outdir:"
+        ls -l outdir/
     >>>
 
     output {
-        File fastqc_data = "~{filename}_fastqc.zip"
-        File fastqc_report = "~{filename}_fastqc.html"
+        File fastqc_data = "outdir/~{filename}_fastqc.zip"
+        File fastqc_report = "outdir/~{filename}_fastqc.html"
     }
 
     #########################
     # BEGONE PREEMPTION
     RuntimeAttr default_attr = object {
-        cpu_cores:          4,
-        mem_gb:             16,
+        cpu_cores:          2,
+        mem_gb:             8,
         disk_gb:            disk_size,
         boot_disk_gb:       50,
         preemptible_tries:  0,
