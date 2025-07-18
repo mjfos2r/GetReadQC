@@ -106,8 +106,8 @@ task FastQC {
     #########################
     # BEGONE PREEMPTION
     RuntimeAttr default_attr = object {
-        cpu_cores:          4,
-        mem_gb:             32,
+        cpu_cores:          8,
+        mem_gb:             64,
         disk_gb:            disk_size,
         boot_disk_gb:       50,
         preemptible_tries:  0,
