@@ -20,8 +20,6 @@ task FastQC {
     }
 
     Int disk_size = 365 + ceil(size(reads, "GB"))
-    String ext = sub(basename(reads), "^[^.]+", "")
-    String filename = sub(basename(reads), ext, "")
 
     command <<<
         set -euo pipefail
@@ -51,8 +49,8 @@ task FastQC {
     >>>
 
     output {
-        File fastqc_data = "outdir/~{filename}_fastqc.zip"
-        File fastqc_report = "outdir/~{filename}_fastqc.html"
+        File fastqc_data = select_first(glob("outdir/*_fastqc.zip"))
+        File fastqc_report = select_first(glob("outdir/*_fastqc.html"))
     }
 
     #########################
