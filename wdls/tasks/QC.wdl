@@ -19,7 +19,7 @@ task FastQC {
         RuntimeAttr? runtime_attr_override
     }
 
-    Int disk_size = 365 + ceil(size(reads, "GB"))
+    Int disk_size = 365 + 2*ceil(size(reads, "GB"))
 
     command <<<
         set -euo pipefail
@@ -31,16 +31,16 @@ task FastQC {
         if ~{nanopore}; then
             echo "Beginning execution of FastQC in Nanopore mode!"
             fastqc \
+                -t "$NPROCS" \
                 --outdir outdir \
-                --memory 7900 \
                 --nano \
                 ~{reads}
             echo "Finished!"
         else
             echo "Beginning execution of FastQC."
             fastqc \
+                -t "$NPROCS" \
                 --outdir outdir \
-                --memory 7900 \
                 ~{reads}
             echo "Finished!"
         fi
@@ -56,8 +56,8 @@ task FastQC {
     #########################
     # BEGONE PREEMPTION
     RuntimeAttr default_attr = object {
-        cpu_cores:          2,
-        mem_gb:             8,
+        cpu_cores:          4,
+        mem_gb:             16,
         disk_gb:            disk_size,
         boot_disk_gb:       50,
         preemptible_tries:  0,
