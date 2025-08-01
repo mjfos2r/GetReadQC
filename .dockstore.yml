@@ -1,5 +1,6 @@
 version: 1.2
 workflows:
-- name: GetReadQC
-  subclass: wdl
-  primaryDescriptorPath: /wdls/workflows/GetReadQC.wdl
+  - name: GetReadQC
+    subclass: wdl
+    primaryDescriptorPath: /wdls/workflows/GetReadQC.wdl
+    latestTagAsDefault: 'true'
