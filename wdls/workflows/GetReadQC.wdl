@@ -6,7 +6,7 @@ import "../tasks/QC.wdl" as QC
 workflow GetReadQC {
 
     meta {
-        description: "Run multiqc on an array of input fastqs and output a multiqc report."
+        description: "Run multiqc on an array of input fastqs and output a multiqc report. This needs optimizing for large single read files."
     }
 
     parameter_meta {
